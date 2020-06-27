@@ -682,3 +682,19 @@ MS-HOPE	Sat Jun 27 11:29:19 2020
 	E:\IdeaProjects\ysnr-mes-client\fb\ib_util.dll library has not been found
 	ib_util.dll library has not been found
 
+
+MS-HOPE	Sat Jun 27 15:24:34 2020
+	ib_util init failed, UDFs can't be used - looks like firebird misconfigured
+	
+	E:\IdeaProjects\ysnr-mes-client\fb\ib_util.dll library has not been found
+	E:\IdeaProjects\ysnr-mes-client\fb\ib_util.dll library has not been found
+	ib_util.dll library has not been found
+
+
+MS-HOPE	Sat Jun 27 16:01:30 2020
+	ib_util init failed, UDFs can't be used - looks like firebird misconfigured
+	
+	E:\IdeaProjects\ysnr-mes-client\fb\ib_util.dll library has not been found
+	E:\IdeaProjects\ysnr-mes-client\fb\ib_util.dll library has not been found
+	ib_util.dll library has not been found
+
