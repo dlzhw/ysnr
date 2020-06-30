@@ -22,7 +22,19 @@ public abstract class AppUtil {
     private static Pane appRootNode;
     private static Parent appMainContentNode;
     private static Map<String,Pane> fxmlCache = new HashMap<>();
+
     public static Pane loadFXML(String fxmlPath) {
+        Pane pane =fxmlCache.get(fxmlPath);
+        if(pane != null ){
+            return pane;
+        }else{
+            pane = loadFxml(fxmlPath);
+            fxmlCache.put(fxmlPath,pane);
+        }
+        return pane;
+    }
+
+    private static Pane loadFxml(String fxmlPath) {
         Pane pane;
         ResourceBundle resourceBundle = null;
 

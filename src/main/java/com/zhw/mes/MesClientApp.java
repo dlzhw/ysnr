@@ -1,6 +1,7 @@
 package com.zhw.mes;
 
 import com.zhw.mes.support.route.AppRouter;
+import com.zhw.mes.support.route.ReplaceNodeAppRouter;
 import com.zhw.mes.support.route.StageAppRouter;
 import com.zhw.mes.support.utils.AppUtil;
 import com.zhw.mes.support.utils.AppUtilImpl;
@@ -93,7 +94,7 @@ public class MesClientApp extends Application {
     //路由
     @Bean
     public AppRouter appRouter(){
-        return new StageAppRouter();
-        //return new ReplaceNodeAppRouter();
+        //return new StageAppRouter();
+        return new ReplaceNodeAppRouter();
     }
 }

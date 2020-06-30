@@ -20,7 +20,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 @Controller
-@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class IndexController implements Initializable {
     @Autowired
     private MenuService menuService;
