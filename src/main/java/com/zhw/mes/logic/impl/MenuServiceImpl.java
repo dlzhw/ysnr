@@ -22,8 +22,16 @@ public class MenuServiceImpl implements MenuService {
         m.setRoutePath("/ui/logout.fxml");
         data.add(m);
         m = new Menu();
-        m.setDisplayName("demo");
-        m.setRoutePath("/ui/demo.fxml");
+        m.setDisplayName("快捷键测试 从m开始");
+        m.setRoutePath("/ui/shortcut.fxml");
+        data.add(m);
+        m = new Menu();
+        m.setDisplayName("快捷键测试 从a开始");
+        m.setRoutePath("/ui/shortcut2.fxml");
+        data.add(m);
+        m = new Menu();
+        m.setDisplayName("电子称测试");
+        m.setRoutePath("/ui/scale.fxml");
         data.add(m);
     }
     @Override

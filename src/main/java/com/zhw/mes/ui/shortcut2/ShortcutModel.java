@@ -1,11 +1,11 @@
-package com.zhw.mes.ui.demo;
+package com.zhw.mes.ui.shortcut2;
 
 import com.zhw.mes.domain.Material;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 
-public class DemoModel {
+public class ShortcutModel {
     private SimpleListProperty<Material> materials = new SimpleListProperty<>();
     private SimpleListProperty<Button> products = new SimpleListProperty<>();
 

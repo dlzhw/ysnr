@@ -1,10 +1,11 @@
-package com.zhw.mes.ui.demo;
+package com.zhw.mes.ui.shortcut2;
 
 import com.zhw.mes.domain.Material;
 import com.zhw.mes.domain.Product;
 import com.zhw.mes.logic.MaterailService;
 import com.zhw.mes.logic.ProductService;
 import com.zhw.mes.support.controller.RouteCallbackController;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,7 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import org.slf4j.Logger;
@@ -22,13 +23,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 @Controller
-public class DemoController extends RouteCallbackController implements Initializable {
-    private final Logger logger = LoggerFactory.getLogger(DemoController.class);
+public class Shortcut2Controller extends RouteCallbackController implements Initializable {
+    private final Logger logger = LoggerFactory.getLogger(Shortcut2Controller.class);
 
     @Autowired
     private MaterailService materailService;
@@ -44,40 +45,58 @@ public class DemoController extends RouteCallbackController implements Initializ
     @FXML
     private VBox rootLayout;
 
-    private DemoModel demoModel = new DemoModel();
+    private ShortcutModel shortcutModel = new ShortcutModel();
+
+    List<Button> buttons;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        materialTable.itemsProperty().bind(demoModel.materialsProperty());
+        materialTable.itemsProperty().bind(shortcutModel.materialsProperty());
+
         List<Product> products = productService.findAll();
         List<Button> buttons = products.stream().map(p -> {
             Button b = new Button();
             b.setOnAction(this::buttonClick);
+            b.setMnemonicParsing(true);
             b.setText(p.getName());
             b.setUserData(p);
             return b;
         }).collect(Collectors.toList());
-        Button b = buttons.get(0);
-
+        this.buttons = buttons;
         productFlowPane.getChildren().setAll(buttons);
     }
 
     @Override
     public void beforeRouteIn(Scene scene) {
-        super.beforeRouteIn(scene);
+        Map<KeyCombination,Button> shortcuts = new HashMap<>();
+
+        for (int j = 0; j < buttons.size(); j++) {
+            int i = 97+j;
+            Button btn = buttons.get(j);
+            if(j==0){
+                KeyCombination kc = new KeyCodeCombination(KeyCode.A,KeyCombination.CONTROL_DOWN);
+
+                Mnemonic m = new Mnemonic(btn,kc);
+                scene.addMnemonic(m);
+
+            }
+        }
+        scene.setUserData(shortcuts);
+
+
     }
 
     @Override
     public void afterRouteOut(Scene scene) {
-        super.afterRouteOut(scene);
+
+        scene.setUserData(null);
     }
 
 
-    private void buttonClick(ActionEvent actionEvent) {
-        Button btn = (Button) actionEvent.getSource();
-        Product p = (Product) btn.getUserData();
-        queryTextField.setText(p.getMno());
-        search(p.getMno());
+    public void buttonClick(ActionEvent actionEvent) {
+
+        queryData(actionEvent);
     }
 
     public void queryData(ActionEvent actionEvent) {
@@ -87,7 +106,7 @@ public class DemoController extends RouteCallbackController implements Initializ
 
     public void search(String no){
         List<Material> materials = materailService.findByNo(no);
-        demoModel.setMaterials(FXCollections.observableList(materials));
+        shortcutModel.setMaterials(FXCollections.observableList(materials));
     }
 
 

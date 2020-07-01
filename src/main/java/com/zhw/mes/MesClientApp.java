@@ -71,7 +71,7 @@ public class MesClientApp extends Application {
 
         mainStage.setScene(rootScene);
         mainStage.setTitle("hello");
-        mainStage.setMaximized(true);
+        //mainStage.setMaximized(true);
         mainStage.show();
     }
 
